@@ -710,8 +710,6 @@ let insert_mangas = async()=> {
         for (let chapter of manga.chapters) {
             chapter.manga_id = one._id
             chapter.cover_photo = chapter.pages[0]
-            let pagesString = chapter.pages.join(",");
-            chapter.pages = pagesString;
             await Chapter.create(chapter)
         }
     }
