@@ -1,9 +1,10 @@
 import { Router } from "express"
+import read from "../controllers/categories/read.js"
 
 const category_router = Router()
 
 //category_router.post()
-//category_router.get()
+category_router.get('/',read)
 //category_router.put()
 //category_router.delete()
 
