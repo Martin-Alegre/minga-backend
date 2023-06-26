@@ -5,8 +5,8 @@ let schema = new Schema({
     manga_id: { type:Types.ObjectId,ref: 'users',required:true },
     title: { type:String,required:true },
     cover_photo: { type:String,required:true },
-    pages: { type:String,required:true },
-    order: { type:String,required:true }
+    pages: [{ type:String,required:true }],
+    order: { type:Number,required:true }
 },{
     timestamps:true
 })
