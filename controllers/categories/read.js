@@ -1,13 +1,13 @@
-import Author from "../../models/Author.js"
+import Category from "../../models/Category.js"
 
 export default async(req,res)=> {
     try {
-        let all = await Author.find()       //espero la busqueda de todos los autores
+        let all = await Category.find()       //espero la busqueda de todos los autores
         if (all.length>0) {                          //que hago si encuentro autores?
             return res.status(200).json({   //envío al cliente una respuesta con los datos que quiera
                 response:all,
                 success:true,
-                message:'you have requested GET /api/authors/',
+                message:'you have requested GET /api/categories/',
                 mindhub:'the best',
                 date: new Date()
             })
@@ -15,7 +15,7 @@ export default async(req,res)=> {
             return res.status(404).json({   //envio al cliente OTRA respuesta con los datos que quiera
                 response:null,
                 success:false,
-                message:'not found authors',
+                message:'not found categories',
                 mindhub:'the best',
                 date: new Date()
             })
