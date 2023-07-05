@@ -1,8 +1,9 @@
 import User from "../../models/User.js";
 
-const signOut = async (req, res) => {
+const signOut = async (req, res,next) => {
     try {
-     let one = await User.findByIdAndUpdate(
+      
+     let one = await User.findOneAndUpdate(
         {email:req.user.email},
         {online:false},
         {new:true}

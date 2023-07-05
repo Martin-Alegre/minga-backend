@@ -1,36 +1,26 @@
 import User from "../../models/User.js"
-import bcrypt from 'bcrypt'
 
-const signIn= async(req,res)=> {
+export default async(req,res,next)=> {
     try {
-        const { email, password}= req.body;
-
-        const user= await User.findOne({email});
-        if (!user){
-            return res.status(401).json({
-                success: false,
-                message:'email invalid'
-            })
-        }
-        const passwordMatch = await bcrypt.compare(password, user.password)
-        if (!passwordMatch){
-            return res.status(401).json({
-                success: false,
-                message: 'credential wrong'
-            })
-        }
-        res.json({
-            success: true,
-            user
+        let one = await User.findOneAndUpdate(
+          {email: req.body.email},
+          {online: true},
+          {new: true}
+        )
+        delete one.password
+        return res.status(200).json({
+          success:true,
+          message:'User signIn !',
+          response:{
+            user:one.email,
+            photo: one.photo,
+            token: req.token
+            
+          }
         })
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ 
-            success: false,
-            message:'server error'
-        })
+      return next(error)
     }
 };
 
 
-export default signIn
