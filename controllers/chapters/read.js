@@ -1,20 +1,45 @@
-//por ahora COMO NO VOY A DEVOLVER LOS CAPITULOS
-//voy a definir un controlador SINCRONO
-export default function (req,res) {
-    try {
-        return res.status(200).json({
-            success:true,
-            response:'aca luego nos vamos a conectar a mongo en sprint 3',
-            message:'/chapters'
-        })
-    } catch (error) {
-        return res.status(500).json({
-            success:false,
-            response:null,
-            message:error.message
-        })
-    }
-}
+import Chapter from '../../models/Chapter.js'
 
-//definir los controladores READ de mangas, chapters y users como este controller
-//definir para la tarea minga-08 el controlador READ de categories igual al de authors
+export default async (req, res) => {
+
+  const mangaId = req.query.manga_id
+
+  const page = parseInt(req.query.page) || 1 // Obtener el número de página que se quiere ver o usar 1 por defecto
+  
+  const limit = 6 // Número de capítulos por página
+
+  try {
+
+    const totalChapters = await Chapter.countDocuments({ manga_id: mangaId })
+
+    const totalPages = Math.ceil(totalChapters / limit)
+
+    const chapters = await Chapter.find({manga_id: mangaId})
+
+      .select('-_id -manga_id -cover_photo -pages -createdAt -updatedAt -__v')
+      .sort({ order: 1 }) // Ordenar los capítulos por "order" de forma ascendente
+      .skip((page - 1) * limit) // Saltar los capítulos anteriores a la página actual
+      .limit(limit) // Limitar el número de capítulos a mostrar por página
+
+    const response = {
+        chapters: chapters,
+        currentPage: page,
+        totalPages: totalPages
+    }
+
+    if (page > 1) {
+        response.prev = true
+        response.next = false
+      }
+    else if (page < totalPages) {
+        response.prev = false
+        response.next = true
+    }
+
+    res.json(response)
+
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: 'Error al obtener los capítulos' })
+  }
+}

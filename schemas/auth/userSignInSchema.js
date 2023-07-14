@@ -1,6 +1,8 @@
 import joi from "joi";
 
-const userSignIn = joi.object({
+
+const userSignUp = joi.object({
+
     email: joi.string()
         .required()
         .email({
@@ -13,4 +15,6 @@ const userSignIn = joi.object({
         .alphanum(),
 })
 
-export default userSignIn
+
+export default userSignUp
+
