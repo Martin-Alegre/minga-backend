@@ -4,8 +4,7 @@ let collection = 'authors'
 let schema = new Schema({
     name: { type:String,required:true },
     last_name: { type:String },
-    city: { type:String,required:true },
-    country: { type:String,required:true },
+    city: { type:String },
     date: { type:Date },
     photo: { type:String,required:true },
     user_id: {

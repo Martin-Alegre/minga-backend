@@ -7,9 +7,16 @@ export default async (req, res) => {
 
   try {
     const manga = await Manga.findById(mangaId)
+    .select('title cover_photo description -_id')
+    .populate({
+      path: 'category_id',
+      select: 'name -_id'
+    })
+    .populate({
+      path: 'author_id',
+      select: 'name last_name -_id'
+    })
 
-    .select('-_id -author_id -cover_photo -category_id -createdAt -updatedAt -__v')
-    
     res.status(200).json({ 
         success: true,
         message: 'Manga found',
@@ -17,10 +24,8 @@ export default async (req, res) => {
      })
   } 
   catch (error) {
-     console.error(error)
-     res.status(500).json({ 
-        message: 'Manga not found' 
-    })
+   next(error)
+    
   }
 }
 

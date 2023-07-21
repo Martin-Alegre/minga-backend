@@ -1,42 +1,4 @@
-/* import Manga from "../../models/Manga.js"
 
-export default async (req,res, next) =>{
-    console.log(req.query);
-    let {title,category_id,order}= req.query
-    let queries = {}
-    let pagination = {page:1, limit:4}
-    let sort = {}
-
-    if ( req.query.page){
-        pagination.page = req.query.page
-    }
-    if(req.query.limit){
-        pagination.limit = req.query.limit
-    }
-    if (title){
-            queries.title = {$regex:title, $options:"i"}
-    }
-    if (category_id){
-        queries.category_id= {$in:category_id.split(",")}
-    }
-    if (order){
-        sort.title =order
-    }
-    try {
-       let mangas = await Manga.find(queries)
-       .select("-createdAt -updatedAt -__v")
-       .sort({title:"asc"})
-       .skip(pagination.page > 0 ?(pagination.page-1)*pagination.limit : 0)
-       .limit(pagination.limit > 0 ? pagination.limit : 0)
-       .populate({
-        path:"category_id",
-        select: "name"
-       })
-       res.status(200).json({mangas, success:true})
-    } catch (error) {
-        return next(error)
-}
-} */
 
 import Manga from '../../models/Manga.js';
 
