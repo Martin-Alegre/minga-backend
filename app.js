@@ -1,3 +1,4 @@
+
 import 'dotenv/config.js' //configurar las variables de entorno en la aplicacion
 import './config/db.js'
 import express from 'express'; //modulo necesario para levantar y confgurar un servidor
@@ -35,3 +36,4 @@ app.use(notFoundHandler)
 app.use(errorHandler)
 
 export default app; 
+

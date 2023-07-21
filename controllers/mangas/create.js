@@ -1,5 +1,6 @@
 import Manga from "../../models/Manga.js";
 
+
 let create = async (req, res, next) => {
   try {
     console.log("Aaaaaaaaaaaaaaaaaaaaaaaaaaa");
@@ -27,3 +28,4 @@ let create = async (req, res, next) => {
 };
 
 export default create;
+

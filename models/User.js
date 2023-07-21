@@ -15,9 +15,11 @@ let schema = new Schema({        //defino el primer objeto con las propiedades n
     email: { type:String,required:true},
     password: { type:String,required:true },
     photo: { type:String,required:true },
+
     role: { type:Number, default:0},
     online: { type:Boolean, default:false },
     verified: { type:Boolean, default: true},
+
     verify_code: {type:String }
 },{             //timestamps
     timestamps:true

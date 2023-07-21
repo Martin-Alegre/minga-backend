@@ -1,3 +1,4 @@
+
 import Chapter from "../../models/Chapter.js";
 
 export default async (req, res) => {
@@ -20,9 +21,11 @@ export default async (req, res) => {
       .skip((page - 1) * limit) // Saltar los capítulos anteriores a la página actual
       .limit(limit); // Limitar el número de capítulos a mostrar por página
 
+
     const response = {
         chapters: chapters,
         currentPage: page,
+
         totalPages: totalPages,
         totalChapters: totalChapters
     }
@@ -41,3 +44,4 @@ export default async (req, res) => {
     res.status(500).json({ error: "Error al obtener los capítulos" });
   }
 };
+

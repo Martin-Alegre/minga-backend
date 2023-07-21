@@ -36,10 +36,12 @@ async function read(req, res, next) {
     const pagination = {};
     if (prevPage !== null) {
       pagination.prev = prevPage;
+
     }
     if (nextPage !== null) {
       pagination.next = nextPage;
     }
+
 
     return res.status(200).json({
       mangas,
